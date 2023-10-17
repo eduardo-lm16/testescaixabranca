@@ -4,19 +4,19 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
- * Esta classe tem o intuito de representar o usuario dentro do sistema
+ * Esta classe é responsável por representar o usuário no sistema.
  */
 public class User {
 
     /**
-     * Cria um conexão com o banco de dados
+     * O seguinte trecho cria a conexão com o banco de dados.
      *
      * @return a conexão do banco de dados
      */
     public Connection conectarDB(){
 
         /**
-         * A conexão com banco de dados iniciada como nulo
+         * A conexão com o banco de dados é iniciada como nulo
          */
         Connection conn = null;
 
@@ -30,17 +30,17 @@ public class User {
             Class.forName("com.mysql.Driver.Manager").newInstance();
 
             /**
-             * O caminho para o banco de dados
+             * Definindo o caminho para o banco de dados.
              */
             String url = "jdbc:mysql://127.0.0.1/test?user=lopes&password=123";
 
             /**
-             * Realiza a conexção com banco de dados
+             * Realizando a coneção com o banco de dados
              */
             conn = DriverManager.getConnection(url);
         }
         /**
-         * Trata exceção caso ocorra ao conectar ao banco de dados
+         * Trata exceção caso ocorra erro ao conectar com o banco de dados
          */
         catch (Exception e){}
         /**
@@ -50,7 +50,7 @@ public class User {
     }
 
     /**
-     *  Nome do usuario
+     * Nome de usuario
      */
     public String nome = "";
     /**
@@ -59,7 +59,7 @@ public class User {
     public boolean result = false;
 
     /**
-     * Verifica se usuario está registrado no banco de dados
+     * Verifica se usuario possui registro no banco de dados
      *
      * @param login o login do usuario
      * @param senha a senha do usuario
@@ -67,7 +67,7 @@ public class User {
      */
     public boolean VerificarUsuario(String login, String senha){
         /**
-         * Linha para realizar a busca no banco de dados
+         * Realiza a busca no banco de dados
          */
         String sql = "";
 
@@ -77,22 +77,22 @@ public class User {
         Connection conn = conectarDB();
 
         /**
-         * Monta a linha como sendo um select para buscar no banco de dados
+         * Monta a linha com um select para efetuar a busca no banco de dados
          */
         sql += "select nome from usuarios ";
         sql += "where login = " + "'" + login + "'";
         sql += " and senha = " + "'" + senha + "';";
         /**
-         * Tenta buscar o usuario passado pela variavel sql no banco de dados
+         * Tenta buscar o usuario passado pela variável SQL no banco de dados
          */
         try{
             /**
-             * Inicia as variavesi para realizar a busca no banco de dados e pega os resultados
+             * Inicia as variáveis para realizar a busca no banco de dados e obtém os resultados
              */
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             /**
-             * Caso um registro seja encontrado o seguinte if será executado
+             * Caso um registro seja encontrado, a seguinte variação será executada
              */
             if(rs.next()){
                 /**
@@ -105,13 +105,13 @@ public class User {
 
         }
         /**
-         * Trata Exceções lançadas na busca pelo registro do usuario
+         * Trata exceções lançadas na busca pelo registro do usuário
          */
         catch (Exception e){
 
         }
         /**
-         * Retorna a variavel result
+         * Retorna a variável result
          */
         return  result;
     }
